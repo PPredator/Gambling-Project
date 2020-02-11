@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/gif" href="https://cdn3.iconfinder.com/data/icons/currency-and-cryptocurrency-signs/64/cryptocurrency_blockchain_Ethereum_ETH-512.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Gambling Project</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./web3.min.js"></script>
+    <script type="text/javascript" src="./abi.js"></script>
+    <script type="text/javascript" src="./main.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+  padding: 10px;
+  text-align: center;
+  background: #6C0485;
+  color: #FFFFFF;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+  font-size: 50px;
+}
+
+/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+
+
+/* Column container */
+.row {
+  display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0px;
+    margin-left: -15px;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  -ms-flex: 40%; /* IE10 */
+  flex: 40%;
+  background-color: #FFBE35;
+  padding: 20px;
+  color: white;
+}
+
+/* Main column */
+.main {
+  -ms-flex: 60%; /* IE10 */
+  flex: 60%;
+  background-color: #FFA022;
+  padding: 20px;
+  color: white;
+}
+
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #420052;
+  color: white;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row {
+    flex-direction: column;
+  }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+.button {
+      background-color: #8F18AC; /* Green */
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+      .button2 {
+      background-color: #420052;
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    .button3 {
+      background-color: #FFA022; /* Green */
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    .button4 {
+      background-color: #9250BC; /* Green */
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    .button5 {
+      background-color: #420052; /* Green */
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    .topnav {
+  overflow: hidden;
+  background-color: #420052;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #8F18AC;
+  color: white;
+}
+.topnav a.right {
+  float: right;
+}
+.form-control {
+    display: block;
+    width: 30%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #007bff;
+    background-color: rgba(0,0,0,.075);
+    background-clip: padding-box;
+    border: 1px solid #8F18AC;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+body {
+  padding-top: 0px;
+  background: #F7F7F7;
+  -webkit-perspective: 800px;
+}
+h1{
+  text-align: center;
+}
+#coin {
+  position: relative;
+  margin: 0 auto;
+  width: 180px;
+  height: 180px;
+  cursor: pointer;
+}
+#coin div {
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+  -webkit-box-shadow: inset 0 0 45px rgba(255,255,255,.3), 0 12px 20px -10px rgba(0,0,0,.4);
+     -moz-box-shadow: inset 0 0 45px rgba(255,255,255,.3), 0 12px 20px -10px rgba(0,0,0,.4);
+          box-shadow: inset 0 0 45px rgba(255,255,255,.3), 0 12px 20px -10px rgba(0,0,0,.4);
+}
+.side-a {
+  background-color: #9250BC;/*#44D492;*/
+  background-image: url('https://i.ibb.co/C6vhZxy/ethheadsmall.png');
+
+}
+.side-b {
+  background-color: #420052 /*#FA233E;*/;
+  background-image: url('https://i.ibb.co/Hd75MXd/ethtailssmall.png');
+}
+
+#coin {
+  transition: -webkit-transform 1s ease-in;
+  -webkit-transform-style: preserve-3d;
+}
+#coin div {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+}
+.side-a {
+  z-index: 100;
+}
+.side-b {
+  -webkit-transform: rotateY(-180deg);
+
+}
+
+#coin.heads {
+  -webkit-animation: flipHeads 3s ease-out forwards;
+  -moz-animation: flipHeads 3s ease-out forwards;
+    -o-animation: flipHeads 3s ease-out forwards;
+       animation: flipHeads 3s ease-out forwards;
+}
+#coin.tails {
+  -webkit-animation: flipTails 3s ease-out forwards;
+  -moz-animation: flipTails 3s ease-out forwards;
+    -o-animation: flipTails 3s ease-out forwards;
+       animation: flipTails 3s ease-out forwards;
+}
+
+@-webkit-keyframes flipHeads {
+  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
+  to { -webkit-transform: rotateY(1800deg); -moz-transform: rotateY(1800deg); transform: rotateY(1800deg); }
+}
+@-webkit-keyframes flipTails {
+  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
+  to { -webkit-transform: rotateY(1980deg); -moz-transform: rotateY(1980deg); transform: rotateY(1980deg); }
+}
+
+
+
+
+
+</style>
+</head>
+<body>
+
+
+  <div style="padding-left:16px">
+
+  </div>
+
+<div class="header"><br>
+  <h1 class="display-4">Curly Casino <img src="https://www.pngkey.com/png/full/264-2645391_ethereum-white-logo.png" alt="W3Schools.com" style="width:55px;height:90px;"></h1>
+
+  <center><img src="https://i.ibb.co/b5qS6Hq/progpredatorv6.png"  style="width:193px;height:30px;"></center>
+</div>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about" class="right">About </a>
+</div>
+
+
+<div class="row" >
+  <div class="side">
+  <br>
+    <center>  <h2 style="color:#8F18AC;" > * * *<br><h1 style="color:#36175E;"> <span  id="name_output"></span></h1></h2></center>
+    <center>  <h3 style="color:#841dc9;"> <span  id="nname_output"></span></h3></center>
+
+    <br>
+    <center><img src="https://cdn4.iconfinder.com/data/icons/cryptocoins/227/ETH-alt-512.png" alt="W3Schools.com" style="width:51px;height:51px;"></center>
+    <hr>
+
+        <center>  <h2 style="color:#8F18AC;">Your Address: <br><h5 style="color:#36175E;"><span id="addresss_output"></span></h5></h2></center>
+
+    <hr><br><br>
+    <center>  <h3 style="color:#8F18AC;">Fill the contract :</h3>
+    <center><input type="number" class="form-control" id="fill_contract_input" placeholder="Top Up" ></center>
+   <br>
+  <center><button type="button" id="add_filling_contract_button" class="button">Fill</button></center>
+
+  <br>
+
+
+  </div>
+
+
+  <div class="main">
+
+<br> <center><h2 style="color:#8F18AC;">Choose Your Side!</h2></center> <br>
+<center>  <h3 style="color:#420052;"> <span  id="ht_output"></span></h3></center>
+    <div id="coin">
+      <div class="side-a"></div>
+      <div class="side-b"></div>
+    </div>
+<br>
+
+<center><button type="button" id="head_button" class="button4" value="0">Head</button><button type="button" id="tails_button" class="button5" value="1">Tails</button></center>
+
+
+<hr>
+  <br>
+   <center> <h3 style="color:#8F18AC;">Make Your Bet</h3></center>
+    <center><h6 style="color:#6C0485;">(Make sure that your Metamask is running!)</h6></center>
+    <center><div><input type="number" class="form-control" id="bet_input" placeholder="Bet"  >
+        </div>
+
+              <br>
+       <center> <button type="button" id="add_data_button" class="button">Bet</button></center>
+
+
+
+
+
+  </div>
+
+
+  </div>
+</div>
+
+<div class="footer">
+
+  <center>  <h2 style="color:#f2f2f2;">Contract Ballance : <span id="contactbalance_output"></span></h2></center>
+
+  <center>   <button type="button" id="widtrowlonlyowner_button" class="button" >withdraw</button><button type="button" id="get_contractballnace_button" class="button">Get</button></center>
+
+
+
+</div>
+
+</body>
+</html>
