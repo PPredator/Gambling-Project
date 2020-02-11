@@ -4,7 +4,7 @@ var contractInstance;
 
 $(document).ready(function() {
     window.ethereum.enable(). then(function(accounts){
-      contractInstance = new web3.eth.Contract(abi,"0x06aee8F68d87d2DABDc208dA27e89c45f49f2Ece", {from:accounts[0]});
+      contractInstance = new web3.eth.Contract(abi,"0x780f71777F301E7F2eeB5A7068F4c4Bcfe4DCB06", {from:accounts[0]});
       console.log(contractInstance);
     });
     $("#add_data_button").click(inputBet);
