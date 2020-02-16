@@ -4,7 +4,7 @@ var contractInstance;
 
 $(document).ready(function() {
     window.ethereum.enable(). then(function(accounts){
-      contractInstance = new web3.eth.Contract(abi,"0x780f71777F301E7F2eeB5A7068F4c4Bcfe4DCB06", {from:accounts[0]});
+      contractInstance = new web3.eth.Contract(abi,"0x3c94e1fb296AB475bbd38C8B1c1d26cA227Ac4EC", {from:accounts[0]});
       console.log(contractInstance);
     });
     $("#add_data_button").click(inputBet);
@@ -19,7 +19,6 @@ $(document).ready(function() {
 
 
 });
-
 
 
 
@@ -62,14 +61,18 @@ function inputBet(){
     contractInstance.methods.isItWinning().call().then(function(rea){
       console.log(rea);
       getAdress();
+
       if(rea === true){
         //setTimeout(() => { alert("You Win!"); }, 3000);
         setTimeout(() => { $("#name_output").text("You Win!"); }, 3000);
         setTimeout(() => { $("#nname_output").text("Money travelin to your address!"); }, 3000);
+        setTimeout(() => { userrrBalance(); }, 3000);
+
       }else {
         //setTimeout(() => { alert("You Lose!"); }, 3000);
         setTimeout(() => { $("#name_output").text(" You Lose!"); }, 3000);
         setTimeout(() => { $("#nname_output").text("Better Luck next Time!"); }, 3000);
+        setTimeout(() => { userrrBalance(); }, 3000);
       }
   })
 
@@ -158,4 +161,10 @@ function getAdress(){
 
 function hort(){
 
+}
+function userrrBalance(){
+  contractInstance.methods.getMoney().call().then(function(ss){
+    console.log(ss);
+    $("#userballance_output").text(ss/1000000000000000000 + " ETH");
+  })
 }

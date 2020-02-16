@@ -9,6 +9,7 @@ contract Gambling is Ownable{
        uint bol;
        bool isWinning ;
        address playerAddress;
+       uint userBallance;
 
    }
 
@@ -23,7 +24,10 @@ contract Gambling is Ownable{
 
    uint public balance = 0;
 
-   uint public money = 0;
+
+
+
+
 
 uint public randommm=0;
 
@@ -35,6 +39,8 @@ event BetMade(uint size, uint bol);
       require(msg.sender == betting[msg.sender].playerAddress);
       _;
   }
+
+
 
 
    function random() public view returns (uint){
@@ -54,7 +60,7 @@ event BetMade(uint size, uint bol);
        newBet.size = size;
        newBet.bol = bol;
        newBet.playerAddress = msg.sender;
-       betting[creator] = newBet;
+
 
 
 
@@ -62,23 +68,23 @@ event BetMade(uint size, uint bol);
        random();
 
 
-
        if((random() == 0) && (bol == 0)){
             newBet.isWinning=true;
-            money += msg.value*2;
-            witrowpublicmoney();
+             newBet.userBallance = betting[creator].userBallance +  msg.value*2;
+
 
            balance -= msg.value;
          }else if((random() == 1) && (bol ==1)){
            newBet.isWinning=true;
-           money += msg.value*2;
-           witrowpublicmoney();
+            newBet.userBallance = betting[creator].userBallance +  msg.value*2;
+
 
 
 
 
        }else {
-         money += 0;
+        uint256  zz = betting[msg.sender].userBallance;
+        newBet.userBallance = zz;
         balance += msg.value;
         newBet.isWinning = false;
        }
@@ -103,14 +109,16 @@ event BetMade(uint size, uint bol);
    }
 
    function witrowpublicmoney() public payable onlyBetOwner {
-     uint publicBallace = money;
-     money = 0;
+       address creator = msg.sender;
+     uint publicBallace = betting[creator].userBallance;
+     betting[creator].userBallance = 0;
       msg.sender.transfer(publicBallace);
 
    }
 
    function getMoney() public view returns (uint){
-     return (money);
+     address creator = msg.sender;
+     return (betting[creator].userBallance);
    }
 
 
@@ -129,9 +137,7 @@ event BetMade(uint size, uint bol);
       balance = balance + (adding* 1e18);
   }
 
-  function CasinoProfit()public view onlyOwner returns(uint256){
-      return(balance - money);
-  }
+
 
   function ContractBallanse()public view onlyOwner returns (uint){
       return (address(this).balance);
