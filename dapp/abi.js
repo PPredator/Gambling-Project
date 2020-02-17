@@ -1,23 +1,27 @@
 var abi = [
   {
-    "constant": true,
-    "inputs": [],
-    "name": "balance",
-    "outputs": [
+    "anonymous": false,
+    "inputs": [
       {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "size",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "bol",
         "type": "uint256"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    "name": "BetMade",
+    "type": "event"
   },
   {
     "constant": true,
     "inputs": [],
-    "name": "money",
+    "name": "balance",
     "outputs": [
       {
         "internalType": "uint256",
@@ -84,8 +88,8 @@ var abi = [
     ],
     "name": "addBet",
     "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -154,21 +158,6 @@ var abi = [
   {
     "constant": true,
     "inputs": [],
-    "name": "CasinoProfit",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "ContractBallanse",
     "outputs": [
       {
@@ -209,6 +198,21 @@ var abi = [
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "addedmoney",
+        "type": "uint256"
+      }
+    ],
+    "name": "depositM",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
     "type": "function"
   }
 ]

@@ -29,9 +29,9 @@ contract Gambling is Ownable{
 
 
 
-uint public randommm=0;
+   uint public randommm=0;
 
-event BetMade(uint size, uint bol);
+   event BetMade(uint size, uint bol);
 
    mapping(address => Bet) private betting;
 
@@ -52,10 +52,11 @@ event BetMade(uint size, uint bol);
 
 
 
-   function addBet(uint size, uint bol) public payable{
-       require(msg.value >= size);
-
+   function addBet(uint size, uint bol) public {
        address creator = msg.sender;
+       require( size*1e18 <= betting[creator].userBallance);
+
+
        Bet memory newBet;
        newBet.size = size;
        newBet.bol = bol;
@@ -70,13 +71,14 @@ event BetMade(uint size, uint bol);
 
        if((random() == 0) && (bol == 0)){
             newBet.isWinning=true;
-             newBet.userBallance = betting[creator].userBallance +  msg.value*2;
+             newBet.userBallance = betting[creator].userBallance +  size*1e18*2;
 
 
-           balance -= msg.value;
+           balance -= size*1e18;
          }else if((random() == 1) && (bol ==1)){
            newBet.isWinning=true;
-            newBet.userBallance = betting[creator].userBallance +  msg.value*2;
+            newBet.userBallance = betting[creator].userBallance +  size*1e18*2;
+            balance -= size*1e18;
 
 
 
@@ -84,8 +86,8 @@ event BetMade(uint size, uint bol);
 
        }else {
         uint256  zz = betting[msg.sender].userBallance;
-        newBet.userBallance = zz;
-        balance += msg.value;
+        newBet.userBallance = zz - size*1e18;
+        balance += size*1e18;
         newBet.isWinning = false;
        }
 
@@ -153,5 +155,13 @@ event BetMade(uint size, uint bol);
 
    }
 
+    function depositM(uint addedmoney) public payable  {
+        address creator = msg.sender;
+        require(msg.value == addedmoney*1e18 );
+
+        if(msg.value != addedmoney*1e18) revert();
+
+        betting[creator].userBallance = betting[creator].userBallance + addedmoney*1e18;
+    }
 
 }
