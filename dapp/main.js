@@ -16,7 +16,7 @@ $(document).ready(function() {
     $("#tails_button").click(putTales);
     $("#add_deposit_contract_button").click(depositMoney);
     $("#refresh_button").click(seeMoney);
-
+    $("#widtrowlmoney_button").click(takeMoney);
 
 
 
@@ -65,12 +65,14 @@ function inputBet(){
       getAdress();
       if(rea === true){
         //setTimeout(() => { alert("You Win!"); }, 3000);
+        setTimeout(() => { seeMoney();}, 3000);
         setTimeout(() => { $("#name_output").text("You Win!"); }, 3000);
         setTimeout(() => { $("#nname_output").text("Money travelin to your address!"); }, 3000);
       }else {
         //setTimeout(() => { alert("You Lose!"); }, 3000);
         setTimeout(() => { $("#name_output").text(" You Lose!"); }, 3000);
         setTimeout(() => { $("#nname_output").text("Better Luck next Time!"); }, 3000);
+        setTimeout(() => { seeMoney();}, 3000);
       }
   })
 
