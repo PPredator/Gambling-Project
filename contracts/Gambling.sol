@@ -132,7 +132,7 @@ contract Gambling is Ownable{
    }
 
 
-  function insertBallance(uint adding) public payable onlyOwner{
+  function insertBallance(uint adding) public payable {
 
       require(msg.value == adding*1e18);
       if(msg.value != adding*1e18) revert();

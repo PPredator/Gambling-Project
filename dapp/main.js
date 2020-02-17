@@ -4,8 +4,9 @@ var contractInstance;
 
 $(document).ready(function() {
     window.ethereum.enable(). then(function(accounts){
-      contractInstance = new web3.eth.Contract(abi,"0x05B6D8942982D48220d71B2ABFDB00bb89c72aB0", {from:accounts[0]});
+      contractInstance = new web3.eth.Contract(abi,"0xb8bF35385166D9a21527331D9ce7e1dFF6C8D1d2", {from:accounts[0]});
       console.log(contractInstance);
+      seeMoney();
     });
     $("#add_data_button").click(inputBet);
 
@@ -119,6 +120,7 @@ function seeMoney(){
 
 function takeMoney(){
   contractInstance.methods.witrowpublicmoney().send();
+  seeMoney();
 
 }
 
