@@ -4,7 +4,7 @@ var contractInstance;
 
 $(document).ready(function() {
     window.ethereum.enable(). then(function(accounts){
-      contractInstance = new web3.eth.Contract(abi,"0xb8bF35385166D9a21527331D9ce7e1dFF6C8D1d2", {from:accounts[0]});
+      contractInstance = new web3.eth.Contract(abi,"0x1cf51d6093630e4cd4b0D951AD8DCc9a2B1A0DcD", {from:accounts[0]});
       console.log(contractInstance);
       seeMoney();
     });
@@ -111,7 +111,7 @@ function inputBet(){
 function seeMoney(){
   contractInstance.methods.getMoney().call().then(function(res){
     console.log(res);
-      $("#usermoney_output").text(res/1000000000000000000 + " ETH");
+      $("#usermoney_output").text(res/10000000000000000 + " miniETH");
 
 
 
@@ -131,7 +131,7 @@ function ownMoney(){
 function cBalance(){
   contractInstance.methods.ContractBallanse().call().then(function(ss){
     console.log(ss);
-    $("#contactbalance_output").text(ss/1000000000000000000 + " ETH");
+    $("#contactbalance_output").text(ss/10000000000000000 + " miniETH");
   })
 }
 

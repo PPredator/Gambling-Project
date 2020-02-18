@@ -22,7 +22,7 @@ contract Gambling is Ownable{
    }
 
 
-   uint public balance = 0;
+   uint public balance =0;
 
 
 
@@ -54,7 +54,7 @@ contract Gambling is Ownable{
 
    function addBet(uint size, uint bol) public {
        address creator = msg.sender;
-       require( size*1e18 <= betting[creator].userBallance);
+       require( size*1e16 <= betting[creator].userBallance);
 
 
        Bet memory newBet;
@@ -71,14 +71,14 @@ contract Gambling is Ownable{
 
        if((random() == 0) && (bol == 0)){
             newBet.isWinning=true;
-             newBet.userBallance = betting[creator].userBallance +  size*1e18*2;
+             newBet.userBallance = betting[creator].userBallance +  size*1e16*2;
 
 
-           balance -= size*1e18;
+           balance -= size*1e16;
          }else if((random() == 1) && (bol ==1)){
            newBet.isWinning=true;
-            newBet.userBallance = betting[creator].userBallance +  size*1e18*2;
-            balance -= size*1e18;
+            newBet.userBallance = betting[creator].userBallance +  size*1e16*2;
+            balance -= size*1e16;
 
 
 
@@ -86,8 +86,8 @@ contract Gambling is Ownable{
 
        }else {
         uint256  zz = betting[msg.sender].userBallance;
-        newBet.userBallance = zz - size*1e18;
-        balance += size*1e18;
+        newBet.userBallance = zz - size*1e16;
+        balance += size*1e16;
         newBet.isWinning = false;
        }
 
@@ -132,7 +132,7 @@ contract Gambling is Ownable{
    }
 
 
-  function insertBallance(uint adding) public payable {
+  function insertBallance(uint adding) public payable onlyOwner{
 
       require(msg.value == adding*1e18);
       if(msg.value != adding*1e18) revert();
@@ -162,6 +162,12 @@ contract Gambling is Ownable{
         if(msg.value != addedmoney*1e18) revert();
 
         betting[creator].userBallance = betting[creator].userBallance + addedmoney*1e18;
+    }
+
+    function withdrawl50() public onlyOwner{
+      uint allmoney = balance /2;
+      balance = balance /2;
+      msg.sender.transfer(allmoney);
     }
 
 }
