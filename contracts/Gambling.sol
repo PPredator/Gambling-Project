@@ -42,7 +42,7 @@ contract Gambling is Ownable, usingProvable {
     // Need size and side of the coin
    function flip (uint size, uint side) payable public  {
      require(size <= betting[msg.sender].userBallance);
-     require (betting[msg.sender].inGame == false, "You are currently in game, cannot start a new one yet");
+     require (betting[msg.sender].inGame == false, "You can not bet now, you are in Game");
      betting[msg.sender].playerAddress = msg.sender;
      betting[msg.sender].side = side;
      betting[msg.sender].size = size;
@@ -56,7 +56,7 @@ contract Gambling is Ownable, usingProvable {
   }
     // Updating and waiting for query_id
     function update() payable public {
-    // Call the oracle and populare the struct "User";
+
     uint256 QUERY_EXECUTION_DELAY = 0;
     uint256 GAS_FOR_CALLBACK =200000;
     bytes32 query_id = provable_newRandomDSQuery(QUERY_EXECUTION_DELAY, NUM_RANDOM_BYTES_REQUESTED, GAS_FOR_CALLBACK);
@@ -64,7 +64,7 @@ contract Gambling is Ownable, usingProvable {
     player[query_id].id = query_id;
     player[query_id].playerAddress = msg.sender;
 
-    emit LogNewProvableQuery ("Provable query was sent, waiting for the callback");
+    emit LogNewProvableQuery (" waiting for the callback");
   }
 
     //waiting for callback
