@@ -19,33 +19,24 @@ $(document).ready(function() {
     $("#add_deposit_contract_button").click(depositMoney);
     $("#refresh_button").click(seeMoney);
     $("#widtrowlmoney_button").click(takeMoney);
+    $("#loader").hide();
+    $("#Chose_side").show();
+    $("#loader_intro").hide();
 
 
 
 
 });
- /*contractInstance.getPastEvents(['allEvents'],
+  // Event listener doesnt work
+ async function evCach(){
+ await contractInstance.getPastEvents(['allEvents'],
                              {fromBlock: 'latest', toBlock: 'latest'},
                              async (err, events) => {
-                                  console.log(err);
-                             });*/
+                                  console.log(events);
+                             });}
 
-                             contractInstance.getPastEvents('generatedRandomNumber', {
-       filter: {myIndexedParam: [20,23], myOtherIndexedParam: '0xF62122121980a1bFC3B31b28356205E089fA0302'}, // Using an array means OR: e.g. 20 or 23
-       fromBlock: 0,
-       toBlock: 'latest'
-   }, function(error, events){ console.log(events); })
-   .then(function(events){
-       console.log(events) // same results as the optional callback above
-   });
 
-             // event output example
-                             /*contractInstance.generatedRandomNumber({}, { fromBlock: 0, toBlock: 'latest' }).get((error, eventResult) => {
-                               if (error)
-                                 console.log('Error in myEvent event handler: ' + error);
-                               else
-                                 console.log('myEvent: ' + JSON.stringify(eventResult.args));
-                             });*/
+
 
 
 var aa;
@@ -66,6 +57,7 @@ function putTales(){
 
 function inputBet(){
   var size = $("#bet_input").val();
+  evCach();
 
 
 
@@ -74,6 +66,7 @@ function inputBet(){
     console.log(hash);
     $('#coin').removeClass();
 
+
   })
   .on("conformation", function(conformationNr){
     console.log(conformationNr);
@@ -81,52 +74,68 @@ function inputBet(){
 
   })
   .on("receipt", function winwin(){
-    contractInstance.methods.isItWinning().call().then(function(rea){
-      console.log(rea);
-      getAdress();
-      if(rea === true){
-        //setTimeout(() => { alert("You Win!"); }, 3000);
-        setTimeout(() => { seeMoney();}, 3000);
-        setTimeout(() => { $("#name_output").text("You Win!"); }, 3000);
-        setTimeout(() => { $("#nname_output").text("Money travelin to your address!"); }, 3000);
-      }else {
-        //setTimeout(() => { alert("You Lose!"); }, 3000);
-        setTimeout(() => { $("#name_output").text(" You Lose!"); }, 3000);
-        setTimeout(() => { $("#nname_output").text("Better Luck next Time!"); }, 3000);
-        setTimeout(() => { seeMoney();}, 3000);
-      }
-  })
+    $("#loader").show();
+    $("#Chose_side").hide();
+    $("#loader_intro").show();
+
+  setTimeout(() => {  getset();}, 100000);
 
 
 
-  })
+})
   .on("receipt", function isitwin(){
-    contractInstance.methods.retRandom().call().then(function(rea){
-      console.log(rea);
 
-      if(rea == 0){
-
-        $('#coin').addClass('heads');
-        //setTimeout(() => { alert("You Win!"); }, 3000);
-
-
-      }else{
-
-        $('#coin').addClass('tails');
-        //setTimeout(() => { alert("You Lose!"); }, 3000);
-
-
-      }
-
-    })
-
+      setTimeout(() => {  headOrTales();}, 100000);
 
   })
 
 
 }
 
+function getset(){
+  contractInstance.methods.isItWinning().call().then(function(rea){
+    console.log(rea);
+    getAdress();
+    if(rea === true){
+      //setTimeout(() => { alert("You Win!"); }, 3000);
+      setTimeout(() => { seeMoney();}, 3000);
+      setTimeout(() => { $("#name_output").text("You Win!"); }, 3000);
+      setTimeout(() => { $("#nname_output").text("Money travelin to your address!"); }, 3000);
+      setTimeout(() => { $("#Chose_side").show();}, 3000);
+    }else {
+      //setTimeout(() => { alert("You Lose!"); }, 3000);
+      setTimeout(() => { $("#name_output").text(" You Lose!"); }, 3000);
+      setTimeout(() => { $("#nname_output").text("Better Luck next Time!"); }, 3000);
+      setTimeout(() => { seeMoney();}, 3000);
+      setTimeout(() => { $("#Chose_side").show();}, 3000);
+    }
+  })
+}
 
+function headOrTales(){
+  contractInstance.methods.getRndom().call().then(function(rea){
+    console.log(rea);
+
+    if(rea == 0){
+
+      $('#coin').addClass('heads');
+      $("#loader").hide();
+      $("#loader_intro").hide();
+      //setTimeout(() => { alert("You Win!"); }, 3000);
+
+
+    }else{
+
+      $('#coin').addClass('tails');
+      $("#loader").hide();
+      $("#loader_intro").hide();
+      //setTimeout(() => { alert("You Lose!"); }, 3000);
+
+
+    }
+
+  })
+}
 
 function seeMoney(){
   contractInstance.methods.getMoney().call().then(function(res){

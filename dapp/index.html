@@ -16,7 +16,7 @@
     <script type="text/javascript" src="./main.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 * {
   box-sizing: border-box;
@@ -284,6 +284,26 @@ h1{
 }
 
 
+.loader {
+  border: 16px solid #f2f2f2;
+  border-radius: 50%;
+  border-top: 16px solid #420052;
+  border-bottom: 16px solid #420052;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 
 
@@ -346,7 +366,7 @@ h1{
 
   <div class="main">
 
-<br> <center><h2 style="color:#8F18AC;">Choose Your Side!</h2></center> <br>
+<br> <center><h2 id="loader_intro"style="color:#8F18AC;">Bet was made!<br> Waiting for The Independent Oracle decision!</h2><br><div id= "loader" class="loader"></div><h2 id="Chose_side"style="color:#8F18AC;">Choose Your Side!</h2></center> <br>
 <center>  <h3 style="color:#420052;"> <span  id="ht_output"></span></h3></center>
     <div id="coin">
       <div class="side-a"></div>
