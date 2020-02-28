@@ -2,9 +2,10 @@ var web3 = new Web3(Web3.givenProvider);
 var contractInstance;
 
 
+
 $(document).ready(function() {
     window.ethereum.enable(). then(function(accounts){
-      contractInstance = new web3.eth.Contract(abi,"0x1cf51d6093630e4cd4b0D951AD8DCc9a2B1A0DcD", {from:accounts[0]});
+      contractInstance = new web3.eth.Contract(abi,"0xF62122121980a1bFC3B31b28356205E089fA0302", {from:accounts[0]});
       console.log(contractInstance);
       seeMoney();
     });
@@ -23,9 +24,28 @@ $(document).ready(function() {
 
 
 });
+ /*contractInstance.getPastEvents(['allEvents'],
+                             {fromBlock: 'latest', toBlock: 'latest'},
+                             async (err, events) => {
+                                  console.log(err);
+                             });*/
 
+                             contractInstance.getPastEvents('generatedRandomNumber', {
+       filter: {myIndexedParam: [20,23], myOtherIndexedParam: '0xF62122121980a1bFC3B31b28356205E089fA0302'}, // Using an array means OR: e.g. 20 or 23
+       fromBlock: 0,
+       toBlock: 'latest'
+   }, function(error, events){ console.log(events); })
+   .then(function(events){
+       console.log(events) // same results as the optional callback above
+   });
 
-
+             // event output example
+                             /*contractInstance.generatedRandomNumber({}, { fromBlock: 0, toBlock: 'latest' }).get((error, eventResult) => {
+                               if (error)
+                                 console.log('Error in myEvent event handler: ' + error);
+                               else
+                                 console.log('myEvent: ' + JSON.stringify(eventResult.args));
+                             });*/
 
 
 var aa;
@@ -49,7 +69,7 @@ function inputBet(){
 
 
 
-  contractInstance.methods.addBet(size,aa).send()
+  contractInstance.methods.flip(size,aa).send()
   .on("transactionHash", function(hash){
     console.log(hash);
     $('#coin').removeClass();
@@ -125,7 +145,7 @@ function takeMoney(){
 }
 
 function ownMoney(){
-  contractInstance.methods.widtraulall().send();
+  contractInstance.methods.withdrawAll().send();
 
 }
 function cBalance(){
@@ -138,10 +158,10 @@ function cBalance(){
 function toFill(){
   var size = $("#fill_contract_input").val();
   var config ={
-    value: web3.utils.toWei(size, "ether")
+    value: (web3.utils.toWei(size, "ether")/100)
   }
 
-  contractInstance.methods.insertBallance(size).send(config)
+  contractInstance.methods.fundContract(size).send(config)
   .on("transactionHash", function(hash){
     console.log(hash);
 
@@ -170,7 +190,7 @@ function depositMoney(){
   var addedmoney = $("#adddeposit_contract_input").val();
 
   var config ={
-    value: web3.utils.toWei(addedmoney, "ether")
+    value: (web3.utils.toWei(addedmoney, "ether")/100)
   }
 
   contractInstance.methods.depositM(addedmoney).send(config)

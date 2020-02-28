@@ -1,5 +1,11 @@
 var abi = [
   {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -7,15 +13,48 @@ var abi = [
         "internalType": "uint256",
         "name": "size",
         "type": "uint256"
-      },
+      }
+    ],
+    "name": "DepositSent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "queryRequested",
+        "type": "string"
+      }
+    ],
+    "name": "LogNewProvableQuery",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "result",
+        "type": "string"
+      }
+    ],
+    "name": "flipResult",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "bol",
+        "name": "randomNumber",
         "type": "uint256"
       }
     ],
-    "name": "BetMade",
+    "name": "generatedRandomNumber",
     "type": "event"
   },
   {
@@ -35,12 +74,48 @@ var abi = [
   },
   {
     "constant": true,
-    "inputs": [],
-    "name": "randommm",
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "betting",
     "outputs": [
       {
+        "internalType": "address payable",
+        "name": "playerAddress",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
-        "name": "",
+        "name": "side",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "userBallance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "size",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "inGame",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "isItWins",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ranNubber",
         "type": "uint256"
       }
     ],
@@ -49,23 +124,25 @@ var abi = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [],
-    "name": "destToy",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
-    "inputs": [],
-    "name": "random",
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "player",
     "outputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "playerAddress",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -82,20 +159,11 @@ var abi = [
       },
       {
         "internalType": "uint256",
-        "name": "bol",
+        "name": "side",
         "type": "uint256"
       }
     ],
-    "name": "addBet",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "widtraulall",
+    "name": "flip",
     "outputs": [],
     "payable": true,
     "stateMutability": "payable",
@@ -104,7 +172,103 @@ var abi = [
   {
     "constant": false,
     "inputs": [],
-    "name": "witrowpublicmoney",
+    "name": "update",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_queryId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "_result",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_proof",
+        "type": "bytes"
+      }
+    ],
+    "name": "__callback",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_myid",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "_result",
+        "type": "string"
+      }
+    ],
+    "name": "__callback",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "withdrawAll",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "ss",
+        "type": "uint256"
+      }
+    ],
+    "name": "fundContract",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "addedmoney",
+        "type": "uint256"
+      }
+    ],
+    "name": "depositM",
     "outputs": [],
     "payable": true,
     "stateMutability": "payable",
@@ -126,6 +290,15 @@ var abi = [
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [],
+    "name": "witrowpublicmoney",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "isItWinning",
@@ -141,39 +314,9 @@ var abi = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "adding",
-        "type": "uint256"
-      }
-    ],
-    "name": "insertBallance",
-    "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "ContractBallanse",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "retRandom",
     "outputs": [
       {
         "internalType": "uint256",
@@ -202,17 +345,35 @@ var abi = [
   },
   {
     "constant": false,
-    "inputs": [
+    "inputs": [],
+    "name": "withdrawl50",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "destToy",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getRndom",
+    "outputs": [
       {
         "internalType": "uint256",
-        "name": "addedmoney",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "depositM",
-    "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
+    "payable": false,
+    "stateMutability": "view",
     "type": "function"
   }
 ]
