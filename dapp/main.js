@@ -8,6 +8,7 @@ $(document).ready(function() {
       contractInstance = new web3.eth.Contract(abi,"0xF62122121980a1bFC3B31b28356205E089fA0302", {from:accounts[0]});
       console.log(contractInstance);
       seeMoney();
+      getAdress();
     });
     $("#add_data_button").click(inputBet);
 
@@ -65,6 +66,8 @@ function inputBet(){
   .on("transactionHash", function(hash){
     console.log(hash);
     $('#coin').removeClass();
+    $("#widtrowlmoney_button").hide();
+    $("#add_data_button").hide();
 
 
   })
@@ -76,6 +79,8 @@ function inputBet(){
   .on("receipt", function winwin(){
     $("#loader").show();
     $("#Chose_side").hide();
+    $("#name_output").hide();
+    $("#nname_output").hide();
     $("#loader_intro").show();
 
   setTimeout(() => {  getset();}, 100000);
@@ -99,15 +104,23 @@ function getset(){
     if(rea === true){
       //setTimeout(() => { alert("You Win!"); }, 3000);
       setTimeout(() => { seeMoney();}, 3000);
+      setTimeout(() => { $("#name_output").show(); }, 3000);
+      setTimeout(() => { $("#nname_output").show(); }, 3000);
       setTimeout(() => { $("#name_output").text("You Win!"); }, 3000);
-      setTimeout(() => { $("#nname_output").text("Money travelin to your address!"); }, 3000);
+      setTimeout(() => { $("#nname_output").text("ETH is added to your Ballance!"); }, 3000);
       setTimeout(() => { $("#Chose_side").show();}, 3000);
+      setTimeout(() => { $("#widtrowlmoney_button").show();}, 3000);
+      setTimeout(() => { $("#add_data_button").show();}, 3000);
     }else {
       //setTimeout(() => { alert("You Lose!"); }, 3000);
+      setTimeout(() => { $("#name_output").show(); }, 3000);
+      setTimeout(() => { $("#nname_output").show(); }, 3000);
       setTimeout(() => { $("#name_output").text(" You Lose!"); }, 3000);
       setTimeout(() => { $("#nname_output").text("Better Luck next Time!"); }, 3000);
       setTimeout(() => { seeMoney();}, 3000);
       setTimeout(() => { $("#Chose_side").show();}, 3000);
+      setTimeout(() => { $("#widtrowlmoney_button").show();}, 3000);
+      setTimeout(() => { $("#add_data_button").show();}, 3000);
     }
   })
 }
